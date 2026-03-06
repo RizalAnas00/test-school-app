@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\AcademicClass;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,9 +17,11 @@ class StudentFactory extends Factory
      */
     public function definition(): array
     {
+        $ClassIds = AcademicClass::pluck('id')->toArray();
+
         return [
             'name' => fake()->name(),
-            'academic_class_id' => \App\Models\AcademicClass::factory(),
+            'academic_class_id' => fake()->randomElement($ClassIds),
             'nisn' => fake()->unique()->numerify('##########'),
             'address' => fake()->address(),
             'phone_number' => fake()->phoneNumber(),

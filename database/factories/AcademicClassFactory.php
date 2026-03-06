@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class AcademicClassFactory extends Factory
         $className = fake()->unique()->bothify('Class ?#');
         return [
             'name' => $className,
-            'teacher_id' => \App\Models\Teacher::factory(),
+            'teacher_id' => Teacher::factory(),
             'code' => fake()->unique()->bothify('CLS-####'),
             'description' => fake()->sentence(),
         ];

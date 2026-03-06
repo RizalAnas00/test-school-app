@@ -9,9 +9,12 @@
 
             <x-app-logo href="{{ route('dashboard') }}" wire:navigate />
 
-            <flux:navbar class="-mb-px max-lg:hidden">
+            <flux:navbar class="-mb-px max-lg:hidden gap-2">
                 <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                     {{ __('Dashboard') }}
+                </flux:navbar.item>
+                <flux:navbar.item icon="folder-git-2" href="{{ route('students.index') }}" wire:navigate>
+                    {{ __('Manage Students') }}
                 </flux:navbar.item>
             </flux:navbar>
 
