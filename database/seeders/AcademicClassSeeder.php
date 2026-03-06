@@ -1,0 +1,18 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\AcademicClass;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class AcademicClassSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        AcademicClass::factory()->count(6)->create();
+    }
+}
