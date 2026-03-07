@@ -16,6 +16,12 @@
                 <flux:navbar.item icon="folder-git-2" href="{{ route('students.index') }}" wire:navigate>
                     {{ __('Manage Students') }}
                 </flux:navbar.item>
+                <flux:navbar.item icon="folder-git-2" href="{{ route('teachers.index') }}" wire:navigate>
+                    {{ __('Manage Teachers') }}
+                </flux:navbar.item>
+                <flux:navbar.item icon="folder-git-2" href="{{ route('classes.index') }}" wire:navigate>
+                    {{ __('Manage Classes') }}
+                </flux:navbar.item>
             </flux:navbar>
 
             <flux:spacer />

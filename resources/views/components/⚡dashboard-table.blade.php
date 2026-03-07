@@ -13,7 +13,7 @@ new class extends Component
     use WithPagination;
 
     public $entityName = 'students';
-    public $entities = ['students', 'teachers', 'all'];
+    public $entities = ['students', 'teachers', 'classes'];
 
     public function updatedEntityName()
     {
@@ -25,13 +25,13 @@ new class extends Component
     {
         switch ($this->entityName) {
             case 'students':
-                return Student::with('academicClass.teacher')->paginate(10);
+                return Student::with('academicClass.teachers')->paginate(10);
             case 'teachers':
                 return Teacher::with('academicClasses.students')->paginate(10);
-            case 'all':
-                return AcademicClass::with('teacher', 'students')->paginate(10);
+            case 'classes':
+                return AcademicClass::with('teachers', 'students')->paginate(10);
             default:
-                return Student::with('academicClass.teacher')->paginate(10);
+                return Student::with('academicClass.teachers')->paginate(10);
         }
     }
 
@@ -59,13 +59,30 @@ new class extends Component
 
     <flux:table :paginate="$this->paginatedData">
         <flux:table.columns>
-            @if ($entityName === 'students' || $entityName === 'all')
-                <flux:table.column label="Student Name" />
-                <flux:table.column label="Class Name" />
-                <flux:table.column label="Teacher Name" />
+            @if ($entityName === 'students')
+                <flux:table.column label="Student Name">
+                    Student Name
+                </flux:table.column>
+                <flux:table.column label="Class Name">
+                    Class Name
+                </flux:table.column>
+            @elseif ($entityName === 'classes')
+                <flux:table.column label="Class Name">
+                    Class Name
+                </flux:table.column>
+                <flux:table.column label="Teachers">
+                    Teachers
+                </flux:table.column>
+                <flux:table.column label="Students">
+                    Students
+                </flux:table.column>
             @elseif ($entityName === 'teachers')
-                <flux:table.column label="Teacher Name" />
-                <flux:table.column label="Classes" />
+                <flux:table.column label="Teacher Name">
+                    Teacher Name
+                </flux:table.column>
+                <flux:table.column label="Classes">
+                    Classes
+                </flux:table.column>
             @endif
         </flux:table.columns>
 
@@ -78,10 +95,10 @@ new class extends Component
                     @elseif ($entityName === 'teachers')
                         <flux:table.cell>{{ $entity->name }}</flux:table.cell>
                         <flux:table.cell>{{ $entity->academicClasses->pluck('name')->join(', ') ?: '-' }}</flux:table.cell>
-                    @elseif ($entityName === 'all')
-                        <flux:table.cell>{{ $entity->students->pluck('name')->join(', ') ?: '-' }}</flux:table.cell>
+                    @elseif ($entityName === 'classes')
                         <flux:table.cell>{{ $entity->name }}</flux:table.cell>
-                        <flux:table.cell>{{ optional($entity->teacher)->name ?: '-' }}</flux:table.cell>
+                        <flux:table.cell class="max-w-37.5 md:max-w-xs truncate">{{ $entity->teachers->pluck('name')->join(', ') ?: '-' }}</flux:table.cell>
+                        <flux:table.cell class="max-w-37.5 md:max-w-xs truncate">{{ $entity->students->pluck('name')->join(', ') ?: '-' }}</flux:table.cell>
                     @endif
                 </flux:table.row>
             @endforeach

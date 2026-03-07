@@ -11,14 +11,13 @@ class AcademicClass extends Model
     
     protected $fillable = [
         'name',
-        'teacher_id',
         'code',
         'description',
     ];
 
-    public function teacher()
+    public function teachers()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsToMany(Teacher::class);
     }
 
     public function students()

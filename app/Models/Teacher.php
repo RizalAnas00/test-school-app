@@ -17,8 +17,12 @@ class Teacher extends Model
         'birth_date',
     ];
 
+    protected $casts = [
+        'birth_date' => 'date',
+    ];
+
     public function academicClasses()
     {
-        return $this->hasMany(AcademicClass::class);
+        return $this->belongsToMany(AcademicClass::class);
     }
 }

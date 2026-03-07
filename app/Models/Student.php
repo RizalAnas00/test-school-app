@@ -17,7 +17,12 @@ class Student extends Model
         'phone_number',
         'age',
         'birth_date',
-        'enrollment_date',
+        'enrollment_date' 
+    ];
+
+    protected $casts = [
+        'birth_date' => 'date',
+        'enrollment_date' => 'date',
     ];
 
     public function academicClass()

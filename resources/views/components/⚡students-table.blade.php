@@ -14,9 +14,22 @@ class extends Component
     #[Computed]
     public function students()
     {
-        return Student::with('academicClass.teacher')
+        return Student::with('academicClass.teachers')
         ->get()
         ->groupBy('academic_class_id');
+    }
+
+    public function deleteStudent($studentId)
+    {
+        $student = Student::find($studentId);
+
+        if ($student) {
+            $student->delete();
+            session()->flash('message', 'Student deleted successfully.');
+            $this->js('$wire.$refresh()');
+        } else {
+            session()->flash('error', 'Student not found.');
+        }
     }
 };
 ?>
@@ -30,11 +43,30 @@ class extends Component
         Student's Index grouped by their class. 
     </flux:text>    
 
-    <flux:button variant="primary" class="w-full mb-8">Add New Student</flux:button>
-    
+    @if (session()->has('message'))
+        <flux:card class="mb-4 border border-green-200 bg-green-50 dark:bg-green-900/20 dark:border-green-800"> 
+            <div class="flex items-center justify-between text-green-700 dark:text-green-400"> 
+                <div class="flex items-center gap-2">
+                    <flux:icon.check-circle class="w-5 h-5"/> <span>{{ session('message') }}</span> 
+                </div>
+                <button onclick="this.closest('.flux-card').remove()" class="opacity-70 hover:opacity-100">
+                    ✕
+                </button>
+            </div>
+        </flux:card>
+    @endif
+
+
+    <flux:button variant="primary" class="w-full mb-12" 
+                href="{{ route('students.create') }}" 
+                wire:navigate>
+                
+                Add New Student
+            </flux:button>
+            
     <flux:table container:class="max-h-120">
         
-        <flux:table.columns sticky class="bg-white dark:bg-neutral-900">
+        <flux:table.columns sticky class="bg-gray-100 dark:bg-neutral-900">
             <flux:table.column align="center" >Class</flux:table.column>
             <flux:table.column align="center" >Student's Name</flux:table.column>
             <flux:table.column align="center" class="w-44">Actions</flux:table.column>
@@ -61,9 +93,15 @@ class extends Component
 
                         <flux:table.cell>
                             <flux:button.group>
-                                <flux:button size="xs">Detail</flux:button>
-                                <flux:button size="xs">Edit</flux:button>
-                                <flux:button size="xs">Delete</flux:button>
+                                <flux:button size="xs" wire:navigate href="{{ route('students.show', $student) }}">
+                                    Detail
+                                </flux:button>
+                                <flux:button size="xs" wire:navigate href="{{ route('students.edit', $student) }}">
+                                    Edit
+                                </flux:button>
+                                <flux:button size="xs" wire:click="deleteStudent({{ $student->id }})" wire:confirm="Are you sure you want to delete this student?">
+                                    Delete
+                                </flux:button>
                             </flux:button.group>
                         </flux:table.cell>
 
