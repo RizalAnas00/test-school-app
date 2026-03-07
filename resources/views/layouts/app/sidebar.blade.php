@@ -14,6 +14,15 @@
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
+                    </flux:sidebar.item>    
+                    <flux:sidebar.item icon="folder-git-2" :href="route('students.index')" wire:navigate>
+                        {{ __('Manage Students') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="folder-git-2" :href="route('teachers.index')" wire:navigate>
+                        {{ __('Manage Teachers') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="folder-git-2" :href="route('classes.index')" wire:navigate>
+                        {{ __('Manage Classes') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
@@ -41,7 +50,7 @@
 
             <flux:dropdown position="top" align="end">
                 <flux:profile
-                    :initials="auth()->user()->initials()"
+                    {{-- :initials="auth()->user()->initials()" --}}
                     icon-trailing="chevron-down"
                 />
 
@@ -50,12 +59,12 @@
                         <div class="p-0 text-sm font-normal">
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                                 <flux:avatar
-                                    :name="auth()->user()->name"
-                                    :initials="auth()->user()->initials()"
+                                    :name="auth()->user()->username"
+                                    {{-- :initials="auth()->user()->initials()" --}}
                                 />
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
+                                    <flux:heading class="truncate">{{ auth()->user()->username }}</flux:heading>
                                     <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
                                 </div>
                             </div>
