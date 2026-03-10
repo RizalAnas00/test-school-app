@@ -24,6 +24,9 @@
                     <flux:sidebar.item icon="folder-git-2" :href="route('classes.index')" wire:navigate>
                         {{ __('Manage Classes') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="folder-git-2" :href="route('parents.index')" wire:navigate>
+                        {{ __('Manage Parents') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 

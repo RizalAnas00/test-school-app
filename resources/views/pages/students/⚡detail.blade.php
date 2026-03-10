@@ -34,6 +34,11 @@ class extends Component
         </flux:field>
 
         <flux:field>
+            <flux:label>Parents</flux:label>
+            <flux:text>{{ $student->parent->name ?? '-' }}</flux:text>
+        </flux:field>
+
+        <flux:field>
             <flux:label>NISN</flux:label>
             <flux:text>{{ $student->nisn }}</flux:text>
         </flux:field>

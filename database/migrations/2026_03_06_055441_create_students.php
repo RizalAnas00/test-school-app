@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name', 200);
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('parents')->onDelete('set null');
             $table->foreignId('academic_class_id')->constrained('academic_classes')->onDelete('cascade');
             $table->string('nisn', 20)->unique();
             $table->string('address', 500);

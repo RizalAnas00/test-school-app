@@ -22,6 +22,9 @@
                 <flux:navbar.item icon="folder-git-2" href="{{ route('classes.index') }}" wire:navigate>
                     {{ __('Manage Classes') }}
                 </flux:navbar.item>
+                <flux:navbar.item icon="folder-git-2" href="{{ route('parents.index') }}" wire:navigate>
+                    {{ __('Manage Parents') }}
+                </flux:navbar.item>
             </flux:navbar>
 
             <flux:spacer />
