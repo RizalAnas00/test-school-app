@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\AcademicClass;
+use App\Models\Parents;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class StudentFactory extends Factory
 
         return [
             'name' => fake()->name(),
+            'parent_id' => Parents::factory(),
             'academic_class_id' => fake()->randomElement($ClassIds),
             'nisn' => fake()->unique()->numerify('##########'),
             'address' => fake()->address(),

@@ -24,6 +24,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::livewire('classes/create', 'pages::classes.create')->name('classes.create');
     Route::livewire('classes/{academicClass}', 'pages::classes.detail')->name('classes.show');
     Route::livewire('classes/{academicClass}/edit', 'pages::classes.edit')->name('classes.edit');
+
+    // Parents
+    Route::livewire('parents-table', 'parents-table')->name('parents.index');
+    Route::livewire('parents/create', 'pages::parents.create')->name('parents.create');
+    Route::livewire('parents/{parent}', 'pages::parents.detail')->name('parents.show');
+    Route::livewire('parents/{parent}/edit', 'pages::parents.edit')->name('parents.edit');
 });
 
 require __DIR__.'/settings.php';
